@@ -1,4 +1,14 @@
 <script>
+    import {
+		Timeline,
+		TimelineItem,
+		TimelineSeparator,
+		TimelineDot,
+		TimelineConnector,
+		TimelineContent,
+		TimelineOppositeContent
+	} from 'svelte-vertical-timeline';
+
     import Step from "./Step.svelte";
     let steps = [
         {name: 'AI Expense Tracker', icon: "fa-solid fa-coins"},
@@ -70,14 +80,23 @@
             Experience
         </h3>
         <div class="flex flex-col gap-20 w-full mx-auto max-w-[800px]">
-            {#each experience as exp, index}
-            <div class="flex justify-between items-center gap-6 sm:gap-8">
-                <h1 class="text-2xl sm:text-3xl md:text-5xl">
-                    {exp.name}
-                </h1>
-                <h3>{exp.date}</h3>
-            </div>
+            <Timeline position="alternate">
+            {#each experience as exp}
+            <TimelineItem>
+                <TimelineOppositeContent slot="opposite-content">
+                    <p>{exp.date}</p>
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                    <TimelineDot 
+                    style = {'background-color: #A78BFA'}/>
+                    <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent style={'height: 200px;'}>
+                    <h1 class = "text-md sm:text-lg md:text-xl">{exp.name}</h1>
+                </TimelineContent>
+            </TimelineItem>
             {/each}
+        </Timeline>
         </div>
     </section>
 </main>
